@@ -44,7 +44,7 @@ app.get('/', (req:any, res:any) => {
     res.send('Backend is running!')
 });
 
-app.get("/tasks", async (req: any, res: any) => {
+app.get("/tasks", authenticateToken, async (req: any, res: any) => {
     const tasksFromDatabase = await prisma.task.findMany();
     res.json(tasksFromDatabase);
 });
