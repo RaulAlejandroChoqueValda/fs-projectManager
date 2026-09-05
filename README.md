@@ -13,9 +13,9 @@ npm install
 
 ### Variables de entorno
 
-DATABASE_URL="postgres://usuario:password@localhost:5432/miproyecto"
-JWT_SECRET="pass1234"
-PORT=3000
+DATABASE_URL=
+JWT_SECRET=
+PORT=
 
 ## 📜 Comandos disponibles
  
