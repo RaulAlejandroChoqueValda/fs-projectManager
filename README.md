@@ -13,9 +13,10 @@ npm install
 
 ### Variables de entorno
 
-```DATABASE_URL=
-JWT_SECRET=
-PORT=
+```bash
+git add README.md
+git commit -m "docs: corrige cierre del bloque de codigo en instalacion"
+git push origin main
 
 ## 📜 Comandos disponibles
  
