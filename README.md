@@ -6,14 +6,14 @@ Gestor de tareas y proyectos full stack para el Módulo 1.
  
 ## 🚀 Instalación local
 
-bash
+```bash
 git clone https://github.com/RaulAlejandroChoqueValda/fs-projectManager.git
 cd fs-projectManager
 npm install
 
 ### Variables de entorno
 
-DATABASE_URL=
+```DATABASE_URL=
 JWT_SECRET=
 PORT=
 
