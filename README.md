@@ -2,7 +2,7 @@
  
 Gestor de tareas y proyectos full stack para el Módulo 1.
  
-<!-- BADGE_CI -->
+[![CI](https://github.com/RaulAlejandroChoqueValda/fs-projectManager/actions/workflows/ci.yml/badge.svg)](https://github.com/RaulAlejandroChoqueValda/fs-projectManager/actions/workflows/ci.yml)
  
 ## 🚀 Instalación local
  
