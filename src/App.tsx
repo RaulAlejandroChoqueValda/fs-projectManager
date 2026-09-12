@@ -16,14 +16,39 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
 
-  useEffect(() => {    
-    const fetchTasks = async () => {        
-      const response = await fetch("http://localhost:3000/tasks");        
-      const data = await response.json();        
-      setTasks(data);    
-    };    
-    fetchTasks(); 
-  }, []);
+  useEffect(() => {
+    const fetchTasks = async () => {
+      // 1. Si no hay token, no intentamos traer las tareas
+      if (!token) return;
+
+      try {
+        // 2. Enviamos el token en la cabecera
+        const response = await fetch("http://localhost:3000/tasks", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+        
+        const data = await response.json();
+        
+        // 3. Blindaje: Solo guardamos si es exitoso
+        if (response.ok) {
+          setTasks(data);
+        } else {
+          // Si el token caducó, cerramos sesión automáticamente
+          localStorage.removeItem("token");
+          setToken(null);
+          setTasks([]);
+        }
+      } catch (error) {
+        console.error("Error de conexión:", error);
+      }
+    };
+    
+    fetchTasks();
+  }, [token]); // 4. Agregamos el token a las dependencias para que se ejecute al iniciar sesión
 
   const handleLogout = () => {
     localStorage.removeItem("token");
