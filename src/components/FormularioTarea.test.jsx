@@ -2,6 +2,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
+// eslint-disable-next-line no-unused-vars
 import FormularioTarea from './FormularioTarea'
  
 describe('FormularioTarea', () => {
