@@ -154,6 +154,6 @@ jobs:
       - name: Instalar Railway CLI
         run: npm install -g @railway/cli
       - name: Desplegar a Railway
-        run: railway up --service fs-projectManager --environment production
+        run: railway up --service 6c61030e-ac45-423e-acc2-442dcbdae16a/service/4540a836-2442-4721-a16e-56ed5f3b1ceb --environment production
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
