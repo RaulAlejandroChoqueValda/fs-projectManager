@@ -97,19 +97,46 @@ jobs:
   e2e:
     name: Pruebas E2E
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpass
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql://testuser:testpass@localhost:5432/testdb
+      JWT_SECRET: supersecret
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: package-lock.json
-      - run: npm install --legacy-peer-deps
-      - run: npx playwright install --with-deps chromium
-      - run: npx playwright test
+
+      # 1. Levantar Base de Datos y Backend
+      - name: Iniciar Backend y BD
+        working-directory: ./backend
+        run: |
+          npm ci
+          npx prisma migrate deploy
+          npx prisma db seed
+          npm run dev &
+          
+      # 2. Levantar Frontend y ejecutar Playwright
+      - name: Instalar dependencias y correr E2E
+        working-directory: ./
+        run: |
+          npm install --legacy-peer-deps
+          npx playwright install --with-deps chromium
+          npx playwright test
 
   deploy-staging:
     name: Deploy a Staging
