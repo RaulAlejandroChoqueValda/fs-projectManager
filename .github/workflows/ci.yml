@@ -127,13 +127,15 @@ jobs:
           cd backend
           npm ci
           npx prisma migrate deploy
-          npx prisma db seed
+          
+          # FORZAR la ejecución del seed directamente con Node
+          node prisma/seed.js
           
           # 2. Levantar el backend en segundo plano
           npm run dev &
           
-          # 3. Esperar 5 segundos para asegurar que el servidor arrancó
-          sleep 5
+          # 3. Darle 10 segundos al servidor para arrancar bien (ts-node-dev puede ser lento en CI)
+          sleep 10
           
           # 4. Volver a la raíz, preparar frontend y correr pruebas
           cd ..
