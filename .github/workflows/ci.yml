@@ -160,7 +160,7 @@ jobs:
       - name: Instalar Railway CLI
         run: npm install -g @railway/cli
       - name: Desplegar a Railway
-        run: railway up --service fs-projectManager --environment production
+        run: railway up --service backend --environment production
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
