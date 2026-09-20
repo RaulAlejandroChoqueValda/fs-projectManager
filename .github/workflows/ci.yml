@@ -126,6 +126,7 @@ jobs:
           # 1. Preparar base de datos en backend
           cd backend
           npm ci
+          npm install bcryptjs
           npx prisma migrate deploy
           
           # FORZAR la ejecución del seed directamente con Node
@@ -134,7 +135,7 @@ jobs:
           # 2. Levantar el backend en segundo plano
           npm run dev &
           
-          # 3. Darle 10 segundos al servidor para arrancar bien (ts-node-dev puede ser lento en CI)
+          # 3. Darle 10 segundos al servidor para arrancar bien
           sleep 10
           
           # 4. Volver a la raíz, preparar frontend y correr pruebas
