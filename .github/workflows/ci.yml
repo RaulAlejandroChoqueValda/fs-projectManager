@@ -121,19 +121,22 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      # 1. Levantar Base de Datos y Backend
-      - name: Iniciar Backend y BD
-        working-directory: ./backend
+      - name: Ejecutar Backend y Playwright en el mismo entorno
         run: |
+          # 1. Preparar base de datos en backend
+          cd backend
           npm ci
           npx prisma migrate deploy
           npx prisma db seed
+          
+          # 2. Levantar el backend en segundo plano
           npm run dev &
           
-      # 2. Levantar Frontend y ejecutar Playwright
-      - name: Instalar dependencias y correr E2E
-        working-directory: ./
-        run: |
+          # 3. Esperar 5 segundos para asegurar que el servidor arrancó
+          sleep 5
+          
+          # 4. Volver a la raíz, preparar frontend y correr pruebas
+          cd ..
           npm install --legacy-peer-deps
           npx playwright install --with-deps chromium
           npx playwright test
