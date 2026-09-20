@@ -14,16 +14,6 @@ async function main() {
       password: hashedPassword,
     },
   })
-
-  await prisma.task.upsert({
-    where: { id: 1 },
-    update: {},
-    create: {
-      id: 1,
-      text: 'Tarea de ejemplo para pruebas',
-      completed: false,
-    },
-  })
 }
 
 main()
