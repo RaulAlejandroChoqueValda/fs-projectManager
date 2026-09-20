@@ -1,5 +1,5 @@
+/* eslint-env node */
 const { PrismaClient } = require('@prisma/client')
-// Si usas 'bcrypt' nativo en lugar de 'bcryptjs', cámbialo en el require
 const bcrypt = require('bcryptjs') 
 const prisma = new PrismaClient()
 
