@@ -203,6 +203,10 @@ app.get("/profile", (req: any, res: any) => {
     } 
 });
 
+app.get('/health', (req: any, res: any) => {
+  res.status(200).json({ status: 'ok' });
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
 });
